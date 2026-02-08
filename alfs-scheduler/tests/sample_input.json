@@ -1,0 +1,233 @@
+[
+  {
+    "vtime": 0,
+    "events": [
+      {
+        "action": "CGROUP_CREATE",
+        "cgroupId": "root",
+        "cpuShares": 1024,
+        "cpuQuotaUs": -1,
+        "cpuPeriodUs": 100000,
+        "cpuMask": [0, 1, 2, 3]
+      },
+      {
+        "action": "CGROUP_CREATE",
+        "cgroupId": "build",
+        "cpuShares": 2048,
+        "cpuQuotaUs": -1,
+        "cpuPeriodUs": 100000,
+        "cpuMask": [0, 1, 2, 3]
+      },
+      {
+        "action": "CGROUP_CREATE",
+        "cgroupId": "interactive",
+        "cpuShares": 512,
+        "cpuQuotaUs": -1,
+        "cpuPeriodUs": 100000,
+        "cpuMask": [0, 1]
+      }
+    ]
+  },
+  {
+    "vtime": 1,
+    "events": [
+      {
+        "action": "TASK_CREATE",
+        "taskId": "T_build_1",
+        "nice": 0,
+        "cgroupId": "build"
+      },
+      {
+        "action": "TASK_CREATE",
+        "taskId": "T_build_2",
+        "nice": 0,
+        "cgroupId": "build"
+      }
+    ]
+  },
+  {
+    "vtime": 2,
+    "events": [
+      {
+        "action": "TASK_CREATE",
+        "taskId": "T_ui_1",
+        "nice": -5,
+        "cgroupId": "interactive"
+      },
+      {
+        "action": "TASK_SET_AFFINITY",
+        "taskId": "T_ui_1",
+        "cpuMask": [0]
+      }
+    ]
+  },
+  {
+    "vtime": 3,
+    "events": [
+      {
+        "action": "TASK_CREATE",
+        "taskId": "T_daemon_1",
+        "nice": 5,
+        "cgroupId": "root"
+      }
+    ]
+  },
+  {
+    "vtime": 4,
+    "events": [
+      {
+        "action": "TASK_BLOCK",
+        "taskId": "T_build_2"
+      }
+    ]
+  },
+  {
+    "vtime": 5,
+    "events": [
+      {
+        "action": "TASK_YIELD",
+        "taskId": "T_build_1"
+      }
+    ]
+  },
+  {
+    "vtime": 6,
+    "events": [
+      {
+        "action": "TASK_SETNICE",
+        "taskId": "T_daemon_1",
+        "newNice": 0
+      }
+    ]
+  },
+  {
+    "vtime": 7,
+    "events": [
+      {
+        "action": "TASK_UNBLOCK",
+        "taskId": "T_build_2"
+      }
+    ]
+  },
+  {
+    "vtime": 8,
+    "events": [
+      {
+        "action": "TASK_SET_AFFINITY",
+        "taskId": "T_build_1",
+        "cpuMask": [1, 2, 3]
+      },
+      {
+        "action": "TASK_SET_AFFINITY",
+        "taskId": "T_build_2",
+        "cpuMask": [1, 2, 3]
+      }
+    ]
+  },
+  {
+    "vtime": 9,
+    "events": [
+      {
+        "action": "TASK_CREATE",
+        "taskId": "T_build_3",
+        "nice": 0,
+        "cgroupId": "build"
+      }
+    ]
+  },
+  {
+    "vtime": 10,
+    "events": [
+      {
+        "action": "CPU_BURST",
+        "taskId": "T_build_3",
+        "duration": 5
+      }
+    ]
+  },
+  {
+    "vtime": 11,
+    "events": [
+      {
+        "action": "CGROUP_MODIFY",
+        "cgroupId": "build",
+        "cpuShares": 4096,
+        "cpuQuotaUs": null,
+        "cpuMask": null
+      }
+    ]
+  },
+  {
+    "vtime": 12,
+    "events": [
+      {
+        "action": "TASK_MOVE_CGROUP",
+        "taskId": "T_daemon_1",
+        "newCgroupId": "build"
+      }
+    ]
+  },
+  {
+    "vtime": 13,
+    "events": [
+      {
+        "action": "TASK_BLOCK",
+        "taskId": "T_ui_1"
+      }
+    ]
+  },
+  {
+    "vtime": 14,
+    "events": [
+      {
+        "action": "TASK_UNBLOCK",
+        "taskId": "T_ui_1"
+      }
+    ]
+  },
+  {
+    "vtime": 15,
+    "events": [
+      {
+        "action": "TASK_EXIT",
+        "taskId": "T_build_1"
+      }
+    ]
+  },
+  {
+    "vtime": 16,
+    "events": [
+      {
+        "action": "TASK_EXIT",
+        "taskId": "T_build_2"
+      }
+    ]
+  },
+  {
+    "vtime": 17,
+    "events": [
+      {
+        "action": "TASK_EXIT",
+        "taskId": "T_build_3"
+      }
+    ]
+  },
+  {
+    "vtime": 18,
+    "events": [
+      {
+        "action": "TASK_EXIT",
+        "taskId": "T_daemon_1"
+      }
+    ]
+  },
+  {
+    "vtime": 19,
+    "events": [
+      {
+        "action": "TASK_EXIT",
+        "taskId": "T_ui_1"
+      }
+    ]
+  }
+]

@@ -1,0 +1,251 @@
+[
+  {
+    "vtime": 0,
+    "events": [
+      {
+        "action": "CGROUP_CREATE",
+        "cgroupId": "root",
+        "cpuShares": 1024,
+        "cpuQuotaUs": -1,
+        "cpuPeriodUs": 100000,
+        "cpuMask": [0, 1, 2, 3]
+      },
+      {
+        "action": "CGROUP_CREATE",
+        "cgroupId": "latency",
+        "cpuShares": 2048,
+        "cpuQuotaUs": 6000,
+        "cpuPeriodUs": 10000,
+        "cpuMask": [0, 1]
+      },
+      {
+        "action": "CGROUP_CREATE",
+        "cgroupId": "batch",
+        "cpuShares": 256,
+        "cpuQuotaUs": -1,
+        "cpuPeriodUs": 100000,
+        "cpuMask": [2, 3]
+      },
+      {
+        "action": "CGROUP_CREATE",
+        "cgroupId": "limited",
+        "cpuShares": 512,
+        "cpuQuotaUs": 2000,
+        "cpuPeriodUs": 4000,
+        "cpuMask": [0, 2]
+      }
+    ]
+  },
+  {
+    "vtime": 1,
+    "events": [
+      { "action": "TASK_CREATE", "taskId": "UI", "nice": -10, "cgroupId": "latency" },
+      { "action": "TASK_CREATE", "taskId": "Build1", "nice": 5, "cgroupId": "batch" },
+      { "action": "TASK_CREATE", "taskId": "Build2", "nice": 10, "cgroupId": "batch" },
+      { "action": "TASK_CREATE", "taskId": "Bg1", "nice": 19, "cgroupId": "limited" },
+      { "action": "TASK_CREATE", "taskId": "DefaultTask", "nice": 0 }
+    ]
+  },
+  {
+    "vtime": 2,
+    "events": [
+      { "action": "TASK_SET_AFFINITY", "taskId": "UI", "cpuMask": [0] },
+      { "action": "TASK_SET_AFFINITY", "taskId": "Build1", "cpuMask": [2, 3] },
+      { "action": "TASK_SET_AFFINITY", "taskId": "Build2", "cpuMask": [2, 3] },
+      { "action": "TASK_CREATE", "taskId": "BurstA", "nice": -5, "cgroupId": "latency", "cpuMask": [1] }
+    ]
+  },
+  {
+    "vtime": 3,
+    "events": [
+      { "action": "CPU_BURST", "taskId": "BurstA", "duration": 2 },
+      { "action": "TASK_YIELD", "taskId": "UI" }
+    ]
+  },
+  {
+    "vtime": 4,
+    "events": [
+      { "action": "TASK_BLOCK", "taskId": "Build2" },
+      { "action": "TASK_SETNICE", "taskId": "Build1", "newNice": 0 }
+    ]
+  },
+  {
+    "vtime": 5,
+    "events": [
+      { "action": "TASK_UNBLOCK", "taskId": "Build2" },
+      {
+        "action": "CGROUP_MODIFY",
+        "cgroupId": "limited",
+        "cpuQuotaUs": 1000,
+        "cpuPeriodUs": 2000,
+        "cpuMask": [0]
+      }
+    ]
+  },
+  {
+    "vtime": 6,
+    "events": [
+      { "action": "TASK_MOVE_CGROUP", "taskId": "DefaultTask", "newCgroupId": "limited" },
+      { "action": "TASK_SET_AFFINITY", "taskId": "DefaultTask", "cpuMask": [0] },
+      { "action": "TASK_BLOCK", "taskId": "UI" }
+    ]
+  },
+  {
+    "vtime": 7,
+    "events": [
+      { "action": "TASK_UNBLOCK", "taskId": "UI" },
+      {
+        "action": "CGROUP_MODIFY",
+        "cgroupId": "latency",
+        "cpuShares": 4096,
+        "cpuQuotaUs": null,
+        "cpuPeriodUs": 5000
+      },
+      { "action": "TASK_SET_AFFINITY", "taskId": "UI", "cpuMask": [0, 1] }
+    ]
+  },
+  {
+    "vtime": 8,
+    "events": [
+      {
+        "action": "CGROUP_CREATE",
+        "cgroupId": "isolated",
+        "cpuShares": 1024,
+        "cpuQuotaUs": -1,
+        "cpuPeriodUs": 100000,
+        "cpuMask": [3]
+      },
+      { "action": "TASK_MOVE_CGROUP", "taskId": "Build2", "newCgroupId": "isolated" },
+      { "action": "TASK_SET_AFFINITY", "taskId": "Build2", "cpuMask": [3] }
+    ]
+  },
+  {
+    "vtime": 9,
+    "events": [
+      { "action": "TASK_CREATE", "taskId": "IsoTask", "nice": -1, "cgroupId": "isolated" },
+      { "action": "TASK_CREATE", "taskId": "Temp", "nice": 0, "cgroupId": "limited" }
+    ]
+  },
+  {
+    "vtime": 10,
+    "events": [
+      { "action": "TASK_BLOCK", "taskId": "BurstA" },
+      { "action": "TASK_YIELD", "taskId": "Build1" },
+      { "action": "CPU_BURST", "taskId": "IsoTask", "duration": 3 }
+    ]
+  },
+  {
+    "vtime": 11,
+    "events": [
+      { "action": "TASK_UNBLOCK", "taskId": "BurstA" },
+      {
+        "action": "CGROUP_MODIFY",
+        "cgroupId": "batch",
+        "cpuShares": 1024,
+        "cpuQuotaUs": 3000,
+        "cpuPeriodUs": 6000,
+        "cpuMask": [2, 3]
+      },
+      { "action": "TASK_SETNICE", "taskId": "Build2", "newNice": -20 }
+    ]
+  },
+  {
+    "vtime": 12,
+    "events": [
+      { "action": "TASK_MOVE_CGROUP", "taskId": "Build1", "newCgroupId": "root" },
+      { "action": "TASK_SET_AFFINITY", "taskId": "Build1", "cpuMask": [0, 1, 2, 3] },
+      { "action": "TASK_SETNICE", "taskId": "Temp", "newNice": 15 }
+    ]
+  },
+  {
+    "vtime": 13,
+    "events": [
+      { "action": "TASK_EXIT", "taskId": "Bg1" },
+      { "action": "TASK_EXIT", "taskId": "Temp" }
+    ]
+  },
+  {
+    "vtime": 14,
+    "events": [
+      { "action": "CGROUP_DELETE", "cgroupId": "limited" },
+      { "action": "TASK_SET_AFFINITY", "taskId": "DefaultTask", "cpuMask": [1] }
+    ]
+  },
+  {
+    "vtime": 15,
+    "events": [
+      { "action": "TASK_YIELD", "taskId": "DefaultTask" },
+      { "action": "TASK_BLOCK", "taskId": "Build1" }
+    ]
+  },
+  {
+    "vtime": 16,
+    "events": [
+      { "action": "TASK_UNBLOCK", "taskId": "Build1" },
+      {
+        "action": "CGROUP_MODIFY",
+        "cgroupId": "isolated",
+        "cpuQuotaUs": 1000,
+        "cpuPeriodUs": 2000,
+        "cpuMask": [3]
+      },
+      { "action": "TASK_SETNICE", "taskId": "IsoTask", "newNice": 5 }
+    ]
+  },
+  {
+    "vtime": 17,
+    "events": [
+      { "action": "TASK_BLOCK", "taskId": "Build2" },
+      { "action": "TASK_BLOCK", "taskId": "IsoTask" }
+    ]
+  },
+  {
+    "vtime": 18,
+    "events": [
+      { "action": "TASK_UNBLOCK", "taskId": "Build2" },
+      { "action": "TASK_UNBLOCK", "taskId": "IsoTask" },
+      { "action": "TASK_MOVE_CGROUP", "taskId": "Build2", "newCgroupId": "batch" }
+    ]
+  },
+  {
+    "vtime": 19,
+    "events": [
+      { "action": "CGROUP_DELETE", "cgroupId": "isolated" },
+      { "action": "TASK_SET_AFFINITY", "taskId": "IsoTask", "cpuMask": [0, 1, 2, 3] }
+    ]
+  },
+  {
+    "vtime": 20,
+    "events": [
+      { "action": "TASK_CREATE", "taskId": "LateJoiner", "nice": -19, "cgroupId": "root" },
+      { "action": "CPU_BURST", "taskId": "LateJoiner", "duration": 1 }
+    ]
+  },
+  {
+    "vtime": 21,
+    "events": [
+      { "action": "TASK_EXIT", "taskId": "BurstA" },
+      { "action": "TASK_EXIT", "taskId": "Build2" }
+    ]
+  },
+  {
+    "vtime": 22,
+    "events": [
+      { "action": "TASK_EXIT", "taskId": "Build1" },
+      { "action": "TASK_EXIT", "taskId": "IsoTask" }
+    ]
+  },
+  {
+    "vtime": 23,
+    "events": [
+      { "action": "TASK_EXIT", "taskId": "UI" },
+      { "action": "TASK_EXIT", "taskId": "LateJoiner" }
+    ]
+  },
+  {
+    "vtime": 24,
+    "events": [
+      { "action": "TASK_EXIT", "taskId": "DefaultTask" }
+    ]
+  }
+]

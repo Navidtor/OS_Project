@@ -1,0 +1,33 @@
+# Ensure consistent line endings across all platforms
+# This prevents Windows from converting LF to CRLF
+
+# Default: auto-detect, but force LF for text files
+* text=auto eol=lf
+
+# Shell scripts must have LF line endings
+*.sh text eol=lf
+
+# Python scripts must have LF line endings
+*.py text eol=lf
+
+# C/C++ source files
+*.c text eol=lf
+*.h text eol=lf
+*.cpp text eol=lf
+*.hpp text eol=lf
+
+# Makefile must have LF line endings
+Makefile text eol=lf
+
+# Markdown and documentation
+*.md text eol=lf
+*.txt text eol=lf
+
+# JSON files
+*.json text eol=lf
+
+# Binary files - don't touch
+*.o binary
+*.a binary
+*.so binary
+*.exe binary

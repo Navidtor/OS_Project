@@ -1,0 +1,542 @@
+[
+  {
+    "vtime": 0,
+    "schedule": [
+      "idle",
+      "idle",
+      "idle",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 1,
+    "schedule": [
+      "UI",
+      "DefaultTask",
+      "Bg1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "Bg1",
+        "DefaultTask"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 2,
+    "schedule": [
+      "UI",
+      "BurstA",
+      "Build1",
+      "DefaultTask"
+    ],
+    "meta": {
+      "preemptions": 3,
+      "migrations": 1,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "Bg1",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 3,
+    "schedule": [
+      "DefaultTask",
+      "BurstA",
+      "Build1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 2,
+      "migrations": 1,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "Bg1",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 4,
+    "schedule": [
+      "DefaultTask",
+      "BurstA",
+      "Build1",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Bg1",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": [
+        "Build2"
+      ]
+    }
+  },
+  {
+    "vtime": 5,
+    "schedule": [
+      "DefaultTask",
+      "BurstA",
+      "Build1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "Bg1",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 6,
+    "schedule": [
+      "idle",
+      "idle",
+      "Build1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "Build1",
+        "Build2",
+        "Bg1",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": [
+        "UI"
+      ]
+    }
+  },
+  {
+    "vtime": 7,
+    "schedule": [
+      "UI",
+      "BurstA",
+      "Build1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "Bg1",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 8,
+    "schedule": [
+      "DefaultTask",
+      "BurstA",
+      "Build1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "Bg1",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 9,
+    "schedule": [
+      "UI",
+      "BurstA",
+      "Build1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "Bg1",
+        "DefaultTask",
+        "BurstA",
+        "IsoTask",
+        "Temp"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 10,
+    "schedule": [
+      "DefaultTask",
+      "UI",
+      "Build1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 1,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "Bg1",
+        "DefaultTask",
+        "IsoTask",
+        "Temp"
+      ],
+      "blockedTasks": [
+        "BurstA"
+      ]
+    }
+  },
+  {
+    "vtime": 11,
+    "schedule": [
+      "UI",
+      "BurstA",
+      "Build1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 2,
+      "migrations": 1,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "Bg1",
+        "DefaultTask",
+        "BurstA",
+        "IsoTask",
+        "Temp"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 12,
+    "schedule": [
+      "DefaultTask",
+      "BurstA",
+      "Build1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "Bg1",
+        "DefaultTask",
+        "BurstA",
+        "IsoTask",
+        "Temp"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 13,
+    "schedule": [
+      "UI",
+      "BurstA",
+      "Build1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "IsoTask",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 14,
+    "schedule": [
+      "UI",
+      "BurstA",
+      "Build1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "IsoTask",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 15,
+    "schedule": [
+      "UI",
+      "BurstA",
+      "idle",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build2",
+        "IsoTask",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": [
+        "Build1"
+      ]
+    }
+  },
+  {
+    "vtime": 16,
+    "schedule": [
+      "UI",
+      "BurstA",
+      "Build1",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "IsoTask",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 17,
+    "schedule": [
+      "UI",
+      "BurstA",
+      "Build1",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": [
+        "Build2",
+        "IsoTask"
+      ]
+    }
+  },
+  {
+    "vtime": 18,
+    "schedule": [
+      "UI",
+      "BurstA",
+      "Build1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "IsoTask",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 19,
+    "schedule": [
+      "IsoTask",
+      "BurstA",
+      "Build1",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "IsoTask",
+        "DefaultTask",
+        "BurstA"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 20,
+    "schedule": [
+      "IsoTask",
+      "BurstA",
+      "LateJoiner",
+      "Build2"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "Build2",
+        "IsoTask",
+        "DefaultTask",
+        "BurstA",
+        "LateJoiner"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 21,
+    "schedule": [
+      "IsoTask",
+      "UI",
+      "LateJoiner",
+      "Build1"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "UI",
+        "Build1",
+        "LateJoiner",
+        "IsoTask",
+        "DefaultTask"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 22,
+    "schedule": [
+      "UI",
+      "DefaultTask",
+      "LateJoiner",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 1,
+      "runnableTasks": [
+        "UI",
+        "DefaultTask",
+        "LateJoiner"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 23,
+    "schedule": [
+      "idle",
+      "DefaultTask",
+      "idle",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "DefaultTask"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 24,
+    "schedule": [
+      "idle",
+      "idle",
+      "idle",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [],
+      "blockedTasks": []
+    }
+  }
+]

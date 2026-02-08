@@ -1,0 +1,393 @@
+[
+  {
+    "vtime": 0,
+    "schedule": [
+      "idle",
+      "idle",
+      "idle",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 1,
+    "schedule": [
+      "T_build_1",
+      "T_build_2",
+      "idle",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "T_build_1",
+        "T_build_2"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 2,
+    "schedule": [
+      "T_ui_1",
+      "T_build_1",
+      "T_build_2",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 2,
+      "migrations": 2,
+      "runnableTasks": [
+        "T_build_1",
+        "T_build_2",
+        "T_ui_1"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 3,
+    "schedule": [
+      "T_daemon_1",
+      "T_build_1",
+      "T_build_2",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 0,
+      "runnableTasks": [
+        "T_build_1",
+        "T_build_2",
+        "T_ui_1",
+        "T_daemon_1"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 4,
+    "schedule": [
+      "T_ui_1",
+      "T_build_1",
+      "T_daemon_1",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 1,
+      "runnableTasks": [
+        "T_build_1",
+        "T_ui_1",
+        "T_daemon_1"
+      ],
+      "blockedTasks": [
+        "T_build_2"
+      ]
+    }
+  },
+  {
+    "vtime": 5,
+    "schedule": [
+      "T_ui_1",
+      "T_build_1",
+      "T_daemon_1",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "T_build_1",
+        "T_ui_1",
+        "T_daemon_1"
+      ],
+      "blockedTasks": [
+        "T_build_2"
+      ]
+    }
+  },
+  {
+    "vtime": 6,
+    "schedule": [
+      "T_ui_1",
+      "T_build_1",
+      "T_daemon_1",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "T_build_1",
+        "T_ui_1",
+        "T_daemon_1"
+      ],
+      "blockedTasks": [
+        "T_build_2"
+      ]
+    }
+  },
+  {
+    "vtime": 7,
+    "schedule": [
+      "T_build_2",
+      "T_build_1",
+      "T_daemon_1",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 0,
+      "runnableTasks": [
+        "T_build_1",
+        "T_build_2",
+        "T_ui_1",
+        "T_daemon_1"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 8,
+    "schedule": [
+      "T_ui_1",
+      "T_build_2",
+      "T_build_1",
+      "T_daemon_1"
+    ],
+    "meta": {
+      "preemptions": 3,
+      "migrations": 3,
+      "runnableTasks": [
+        "T_build_1",
+        "T_build_2",
+        "T_ui_1",
+        "T_daemon_1"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 9,
+    "schedule": [
+      "T_ui_1",
+      "T_build_2",
+      "T_build_1",
+      "T_build_3"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 0,
+      "runnableTasks": [
+        "T_build_1",
+        "T_build_2",
+        "T_ui_1",
+        "T_daemon_1",
+        "T_build_3"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 10,
+    "schedule": [
+      "T_ui_1",
+      "T_build_2",
+      "T_build_1",
+      "T_build_3"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "T_build_1",
+        "T_build_2",
+        "T_ui_1",
+        "T_daemon_1",
+        "T_build_3"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 11,
+    "schedule": [
+      "T_ui_1",
+      "T_build_2",
+      "T_build_1",
+      "T_build_3"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "T_build_1",
+        "T_build_2",
+        "T_ui_1",
+        "T_daemon_1",
+        "T_build_3"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 12,
+    "schedule": [
+      "T_ui_1",
+      "T_build_2",
+      "T_build_1",
+      "T_build_3"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "T_build_1",
+        "T_build_2",
+        "T_ui_1",
+        "T_daemon_1",
+        "T_build_3"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 13,
+    "schedule": [
+      "T_build_3",
+      "T_build_2",
+      "T_build_1",
+      "T_daemon_1"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 1,
+      "runnableTasks": [
+        "T_build_1",
+        "T_build_2",
+        "T_daemon_1",
+        "T_build_3"
+      ],
+      "blockedTasks": [
+        "T_ui_1"
+      ]
+    }
+  },
+  {
+    "vtime": 14,
+    "schedule": [
+      "T_ui_1",
+      "T_build_2",
+      "T_build_1",
+      "T_build_3"
+    ],
+    "meta": {
+      "preemptions": 2,
+      "migrations": 1,
+      "runnableTasks": [
+        "T_build_1",
+        "T_build_2",
+        "T_ui_1",
+        "T_daemon_1",
+        "T_build_3"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 15,
+    "schedule": [
+      "T_ui_1",
+      "T_build_2",
+      "T_build_3",
+      "T_daemon_1"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 1,
+      "runnableTasks": [
+        "T_build_3",
+        "T_build_2",
+        "T_ui_1",
+        "T_daemon_1"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 16,
+    "schedule": [
+      "T_ui_1",
+      "T_build_3",
+      "T_daemon_1",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 1,
+      "migrations": 2,
+      "runnableTasks": [
+        "T_build_3",
+        "T_daemon_1",
+        "T_ui_1"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 17,
+    "schedule": [
+      "T_ui_1",
+      "T_daemon_1",
+      "idle",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 1,
+      "runnableTasks": [
+        "T_ui_1",
+        "T_daemon_1"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 18,
+    "schedule": [
+      "T_ui_1",
+      "idle",
+      "idle",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [
+        "T_ui_1"
+      ],
+      "blockedTasks": []
+    }
+  },
+  {
+    "vtime": 19,
+    "schedule": [
+      "idle",
+      "idle",
+      "idle",
+      "idle"
+    ],
+    "meta": {
+      "preemptions": 0,
+      "migrations": 0,
+      "runnableTasks": [],
+      "blockedTasks": []
+    }
+  }
+]
