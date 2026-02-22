@@ -8,14 +8,14 @@ A modified CFS (Completely Fair Scheduler) implementation that uses **Min-Heap**
 
 ALFS (Anushiravan-Level Fair Scheduler) is a **process scheduler** - a program that decides which tasks (programs) should run on your computer's CPU and when.
 
-Think of it like a restaurant host who decides which customers get seated at which tables and in what order!
-
 ### What does it do?
+
 - Receives "events" (like "create a new task" or "this task is waiting")
 - Decides which tasks should run on each CPU
 - Sends back the scheduling decisions via Unix Domain Sockets
 
 ### How is it different from Linux CFS?
+
 - Uses **Min-Heap** instead of Red-Black Tree for task selection
 - Simpler implementation with better cache performance
 - Same virtual runtime algorithm as Linux kernel
@@ -25,6 +25,7 @@ Think of it like a restaurant host who decides which customers get seated at whi
 ## Features
 
 ### Core Features (Mandatory) - 4.0 Points ✅
+
 - ✅ CFS-based scheduling with virtual runtime
 - ✅ Nice value support (-20 to +19) with Linux kernel weight table
 - ✅ Multi-CPU scheduling with per-CPU selection
@@ -34,6 +35,7 @@ Think of it like a restaurant host who decides which customers get seated at whi
 - ✅ All 12 event types implemented
 
 ### Bonus Features - 6.0 Points ✅
+
 - ✅ Written in C (kernel-compatible language) - 1.0 pt
 - ✅ Cgroup support with CPU shares and quotas - 1.0 pt
 - ✅ Metadata output (preemptions, migrations, task lists) - 1.0 pt
@@ -72,74 +74,33 @@ make test
 - **Make** (GNU Make)
 - **Python 3.6+** (for running the test server)
 
-### Detailed Setup: Linux (Ubuntu/Debian)
-
-Use this path if you are already on Linux.
-
-#### 1. Install required packages
-`build-essential` installs the C compiler and core build tools. `python3` is used by the local test server.
+### Setup: Linux (Ubuntu/Debian)
 
 ```bash
+# Install required packages
 sudo apt update
 sudo apt install -y build-essential gcc make python3
-```
 
-#### 2. Verify your toolchain
-This confirms your environment is ready before building.
-
-```bash
+# Verify toolchain
 gcc --version
 make --version
 python3 --version
-```
 
-#### 3. Open the project directory
-
-```bash
+# Build and run
 cd /path/to/alfs-scheduler
-```
-
-#### 4. Build from a clean state
-`make clean` removes old objects so you do not debug stale binaries.
-
-```bash
 make clean
 make
-```
-
-#### 5. Run all unit tests
-
-```bash
 make test
-```
 
-#### 6. Run full end-to-end demo
-This starts the Python test server and scheduler together and validates socket communication.
-
-```bash
+# Run full end-to-end demo
 chmod +x run_test.sh
 ./run_test.sh
 ```
 
-#### 7. Manual run (two terminals, useful for debugging)
-
-Terminal 1:
-```bash
-python3 tests/test_server.py event.socket tests/sample_input.json
-```
-
-Terminal 2:
-```bash
-./alfs_scheduler -s event.socket -c 4 -m
-```
-
-`event.socket` is a Unix Domain Socket file in your current directory. If a previous run crashes and leaves it behind, remove it with `rm -f event.socket`.
-
-### Detailed Setup: Windows 10/11 with WSL2 + Ubuntu (Recommended)
-
-Use this path on Windows. It gives a real Linux runtime, which this project expects for Unix Domain Sockets.
+### Setup: Windows 10/11 with WSL2 + Ubuntu (Recommended)
 
 #### 1. Install WSL2 and Ubuntu
+
 Open PowerShell as Administrator:
 
 ```powershell
@@ -148,90 +109,86 @@ wsl --install
 
 Restart when prompted. On first launch, Ubuntu asks you to create a Linux username and password.
 
-#### 2. Update Ubuntu packages
+#### 2. Install build dependencies inside Ubuntu
 
 ```bash
-sudo apt update
-sudo apt upgrade -y
-```
-
-#### 3. Install build dependencies inside Ubuntu
-
-```bash
+sudo apt update && sudo apt upgrade -y
 sudo apt install -y build-essential gcc make python3
 ```
 
-#### 4. Put the project in the right place
+#### 3. Put the project in the right place
+
 WSL can access Windows files under `/mnt/c/...`, but builds are faster and more reliable when the repo is inside Linux home (`~/`).
 
 Option A (work directly from Windows drive):
+
 ```bash
 cd /mnt/c/Users/YOUR_WINDOWS_USERNAME/path/to/alfs-scheduler
 ```
 
 Option B (recommended, copy into Linux filesystem):
+
 ```bash
 cp -r /mnt/c/Users/YOUR_WINDOWS_USERNAME/path/to/alfs-scheduler ~/alfs-scheduler
 cd ~/alfs-scheduler
 ```
 
-#### 5. Build and test
+#### 4. Build and test
 
 ```bash
 make clean
 make
 make test
-```
-
-#### 6. Run full integration demo
-
-```bash
 chmod +x run_test.sh
 ./run_test.sh
 ```
 
-#### 7. Optional: run from VS Code with WSL extension
-Install the VS Code `WSL` extension, then use `WSL: Connect to WSL` and open the folder inside Ubuntu. This keeps terminal, compiler, and socket behavior consistent with Linux.
+#### WSL Path Reference
 
-#### 8. Windows/WSL tips
-- If scripts fail with line-ending errors, convert to LF:
-```bash
-sed -i 's/\r$//' run_test.sh
-chmod +x run_test.sh
-```
-- If socket bind/connect fails:
-```bash
-rm -f event.socket
-```
-- If WSL command fails with virtualization errors (for example `0x80370102`), enable virtualization in BIOS/UEFI and ensure required Windows virtualization features are on.
+| Windows                   | Linux (WSL)                   |
+| ------------------------- | ----------------------------- |
+| `C:\`                     | `/mnt/c/`                     |
+| `D:\`                     | `/mnt/d/`                     |
+| `C:\Users\John\`          | `/mnt/c/Users/John/`          |
+| `C:\Users\John\Downloads` | `/mnt/c/Users/John/Downloads` |
 
 ---
 
 ## Building
 
-| Command | Description |
-|---------|-------------|
-| `make` | Build the project |
-| `make clean` | Remove all build files |
-| `make debug` | Build with debug symbols and sanitizers |
-| `make test` | Build and run all tests |
-| `make test_heap` | Run only heap tests |
-| `make test_scheduler` | Run only scheduler tests |
+| Command               | Description                             |
+| --------------------- | --------------------------------------- |
+| `make`                | Build the project                       |
+| `make clean`          | Remove all build files                  |
+| `make debug`          | Build with debug symbols and sanitizers |
+| `make test`           | Build and run all tests                 |
+| `make test_heap`      | Run only heap tests                     |
+| `make test_scheduler` | Run only scheduler tests                |
 
-### Understanding Compiler Flags
+### Compiler Flags
 
 ```
 gcc -Wall -Wextra -Werror -pedantic -std=c11 -O2
 ```
 
-| Flag | Meaning |
-|------|---------|
-| `-Wall` | Enable all common warnings |
-| `-Wextra` | Enable extra warnings |
-| `-Werror` | Treat warnings as errors |
-| `-pedantic` | Strict ISO C compliance |
-| `-std=c11` | Use C11 standard |
-| `-O2` | Optimization level 2 |
+| Flag        | Meaning                    |
+| ----------- | -------------------------- |
+| `-Wall`     | Enable all common warnings |
+| `-Wextra`   | Enable extra warnings      |
+| `-Werror`   | Treat warnings as errors   |
+| `-pedantic` | Strict ISO C compliance    |
+| `-std=c11`  | Use C11 standard           |
+| `-O2`       | Optimization level 2       |
+
+### Debug Build
+
+For debugging with AddressSanitizer and UndefinedBehaviorSanitizer:
+
+```bash
+make debug
+```
+
+This enables: debug symbols (`-g`), address sanitizer (`-fsanitize=address`), undefined behavior sanitizer (`-fsanitize=undefined`), and no optimization (`-O0`).
 
 ---
 
@@ -247,21 +204,16 @@ chmod +x run_test.sh   # Make executable (first time only)
 ### Method 2: Manual Execution (Two Terminals)
 
 **Terminal 1 - Start the test server:**
+
 ```bash
 python3 tests/test_server.py event.socket tests/sample_input.json
 ```
 
 **Terminal 2 - Start the scheduler:**
+
 ```bash
 ./alfs_scheduler -s event.socket -c 4 -m
 ```
-
-### Method 3: VS Code (Two Terminals)
-
-1. Open terminal: `` Ctrl + ` ``
-2. Click `+` to create second terminal
-3. Run test server in Terminal 1
-4. Run scheduler in Terminal 2
 
 ### Expected Output
 
@@ -304,13 +256,13 @@ Results written to: tests/sample_input_output.json
 ./alfs_scheduler [options]
 ```
 
-| Short | Long | Description | Default |
-|-------|------|-------------|---------|
-| `-s` | `--socket` | Socket file path | `event.socket` |
-| `-c` | `--cpus` | Number of CPUs | `4` |
-| `-q` | `--quanta` | Time quantum | `1` |
-| `-m` | `--metadata` | Include metadata in output | off |
-| `-h` | `--help` | Show help message | - |
+| Short | Long         | Description                | Default        |
+| ----- | ------------ | -------------------------- | -------------- |
+| `-s`  | `--socket`   | Socket file path           | `event.socket` |
+| `-c`  | `--cpus`     | Number of CPUs             | `4`            |
+| `-q`  | `--quanta`   | Time quantum               | `1`            |
+| `-m`  | `--metadata` | Include metadata in output | off            |
+| `-h`  | `--help`     | Show help message          | -              |
 
 ### Examples
 
@@ -343,6 +295,8 @@ Results written to: tests/sample_input_output.json
 
 If `cgroupId` is omitted, the scheduler uses `"0"` as the default main cgroup.
 
+**Note:** Over socket, the tester sends one `TimeFrame` object at a time. In `tests/test_server.py` input files, the file contains an array of timeframes.
+
 ### Output Format (SchedulerTick)
 
 ```json
@@ -358,35 +312,39 @@ If `cgroupId` is omitted, the scheduler uses `"0"` as the default main cgroup.
 }
 ```
 
-### Understanding the Output
-
-| Field | Meaning |
-|-------|---------|
-| `vtime` | Virtual time (clock tick) |
-| `schedule` | Task assigned to each CPU (`idle` if none) |
-| `preemptions` | Tasks stopped to run another task |
-| `migrations` | Tasks that moved to a different CPU |
-| `runnableTasks` | Tasks ready to run |
-| `blockedTasks` | Tasks waiting (I/O, sleep, etc.) |
+| Field           | Meaning                                    |
+| --------------- | ------------------------------------------ |
+| `vtime`         | Virtual time (clock tick)                  |
+| `schedule`      | Task assigned to each CPU (`idle` if none) |
+| `preemptions`   | Tasks stopped to run another task          |
+| `migrations`    | Tasks that moved to a different CPU        |
+| `runnableTasks` | Tasks ready to run                         |
+| `blockedTasks`  | Tasks waiting (I/O, sleep, etc.)           |
 
 ---
 
 ## Supported Events
 
-| Event | Description |
-|-------|-------------|
-| `TASK_CREATE` | Create a new task |
-| `TASK_EXIT` | Terminate a task |
-| `TASK_BLOCK` | Block a task (I/O wait, sleep, etc.) |
-| `TASK_UNBLOCK` | Unblock a previously blocked task |
-| `TASK_YIELD` | Voluntarily yield CPU |
-| `TASK_SETNICE` | Change task nice value (-20 to +19) |
-| `TASK_SET_AFFINITY` | Set CPU affinity mask |
-| `CGROUP_CREATE` | Create a new cgroup |
-| `CGROUP_MODIFY` | Modify cgroup parameters |
-| `CGROUP_DELETE` | Delete a cgroup |
-| `TASK_MOVE_CGROUP` | Move task to different cgroup |
-| `CPU_BURST` | Mark task as CPU-intensive |
+| Event               | Description                       | Required Fields                           | Optional Fields                                     |
+| ------------------- | --------------------------------- | ----------------------------------------- | --------------------------------------------------- |
+| `TASK_CREATE`       | Create a new task                 | `action`, `taskId`                        | `nice`, `cgroupId`, `cpuMask`                       |
+| `TASK_EXIT`         | Terminate a task                  | `action`, `taskId`                        | -                                                   |
+| `TASK_BLOCK`        | Block a task (I/O wait, sleep)    | `action`, `taskId`                        | -                                                   |
+| `TASK_UNBLOCK`      | Unblock a previously blocked task | `action`, `taskId`                        | -                                                   |
+| `TASK_YIELD`        | Voluntarily yield CPU             | `action`, `taskId`                        | -                                                   |
+| `TASK_SETNICE`      | Change task nice value            | `action`, `taskId`, (`newNice` or `nice`) | -                                                   |
+| `TASK_SET_AFFINITY` | Set CPU affinity mask             | `action`, `taskId`, `cpuMask`             | -                                                   |
+| `CGROUP_CREATE`     | Create a new cgroup               | `action`, `cgroupId`                      | `cpuShares`, `cpuQuotaUs`, `cpuPeriodUs`, `cpuMask` |
+| `CGROUP_MODIFY`     | Modify cgroup parameters          | `action`, `cgroupId`                      | `cpuShares`, `cpuQuotaUs`, `cpuPeriodUs`, `cpuMask` |
+| `CGROUP_DELETE`     | Delete a cgroup                   | `action`, `cgroupId`                      | -                                                   |
+| `TASK_MOVE_CGROUP`  | Move task to different cgroup     | `action`, `taskId`, `newCgroupId`         | -                                                   |
+| `CPU_BURST`         | Mark task as CPU-intensive        | `action`, `taskId`, `duration`            | -                                                   |
+
+**Notes:**
+
+- Unknown `action` is rejected (not silently ignored).
+- `cpuQuotaUs: null` means unlimited quota.
+- If `cgroupId` is omitted in `TASK_CREATE`, default cgroup `"0"` is used.
 
 ---
 
@@ -399,25 +357,98 @@ vruntime_delta = actual_runtime × (NICE_0_WEIGHT / task_weight)
 ```
 
 Where:
+
 - `NICE_0_WEIGHT = 1024` (weight for nice=0)
 - `task_weight` comes from the Linux kernel's `sched_prio_to_weight` table
 
-### Task Selection
+### Nice to Weight Table (from Linux kernel)
 
-For each CPU, select the runnable task with:
-1. Minimum vruntime
-2. Compatible CPU affinity
-3. Compatible cgroup CPU mask
-4. Available cgroup quota
+```c
+static const int sched_prio_to_weight[40] = {
+    /* -20 */     88761,     71755,     56483,     46273,     36291,
+    /* -15 */     29154,     23254,     18705,     14949,     11916,
+    /* -10 */      9548,      7620,      6100,      4904,      3906,
+    /*  -5 */      3121,      2501,      1991,      1586,      1277,
+    /*   0 */      1024,       820,       655,       526,       423,
+    /*   5 */       335,       272,       215,       172,       137,
+    /*  10 */       110,        87,        70,        56,        45,
+    /*  15 */        36,        29,        23,        18,        15,
+};
+```
+
+### Task Selection Algorithm
+
+1. At each tick, return currently running tasks to RUNNABLE and update vruntime.
+2. Rebuild the runnable min-heap from RUNNABLE tasks.
+3. For each CPU:
+   a. Extract heap minimum candidates.
+   b. Filter by task affinity + cgroup mask.
+   c. Enforce cgroup quota, including planned runtime already committed to other CPUs in this tick.
+   d. Assign first valid candidate; otherwise schedule "idle".
+4. Reinsert deferred candidates back into heap.
 
 ### Special Cases
 
-| Scenario | Handling |
-|----------|----------|
-| New task | `vruntime = max_vruntime` (prevents starvation) |
-| Unblocked task | Small priority boost for I/O-bound tasks |
-| Yielded task | `vruntime = max_vruntime` (lets others run) |
-| CPU burst | vruntime not updated during burst |
+| Scenario       | Handling                                                         |
+| -------------- | ---------------------------------------------------------------- |
+| New task       | `vruntime = max_vruntime` (prevents starvation)                  |
+| Unblocked task | `vruntime = max(current_vruntime, min_vruntime - latency_bonus)` |
+| Yielded task   | `vruntime = max_vruntime` (lets others run)                      |
+| CPU burst      | vruntime not updated during burst                                |
+
+---
+
+## Implementation Architecture
+
+### Core Data Structures
+
+```c
+// Min-Heap for O(log n) insert and extract-min
+typedef struct {
+    Task **tasks;
+    int size;
+    int capacity;
+} MinHeap;
+
+// Task representation
+typedef struct Task {
+    char task_id[MAX_TASK_ID_LEN];
+    int nice;                    // -20 to +19, default 0
+    double vruntime;             // Virtual runtime
+    int weight;                  // Computed from nice value
+    TaskState state;             // RUNNABLE, RUNNING, BLOCKED, EXITED
+    char cgroup_id[MAX_CGROUP_ID_LEN];
+    int *cpu_affinity;           // CPU mask array
+    int current_cpu;             // Currently assigned CPU (-1 if none)
+    int burst_remaining;         // For CPU_BURST events
+    bool is_burst;               // True while CPU_BURST is active
+    int heap_index;              // Position in heap for O(log n) updates
+} Task;
+
+// Cgroup for resource control
+typedef struct Cgroup {
+    char cgroup_id[MAX_CGROUP_ID_LEN];
+    int cpu_shares;              // Default 1024
+    int cpu_quota_us;            // Default -1 (unlimited)
+    int cpu_period_us;           // Default 100000 (100ms)
+    int *cpu_mask;               // Allowed CPUs
+    double quota_used;           // Tracking quota usage
+} Cgroup;
+
+// Per-CPU run queue
+typedef struct CPURunQueue {
+    int cpu_id;
+    Task *current_task;
+    double min_vruntime;
+} CPURunQueue;
+```
+
+### Cgroup CPU Quota Enforcement
+
+- `cpu_shares` determines relative weight among cgroups (default: 1024)
+- `cpu_quota_us` / `cpu_period_us` controls bandwidth limiting
+- Multi-CPU safety: projected usage includes planned runtime already committed to other CPUs in the same tick
+- Period reset: when elapsed time since period start >= `cpu_period_us`, quota resets
 
 ---
 
@@ -427,7 +458,6 @@ For each CPU, select the runnable task with:
 alfs-scheduler/
 ├── Makefile              # Build configuration
 ├── README.md             # This file
-├── IMPLEMENTATION_PLAN.md
 ├── run_test.sh           # Easy test runner
 ├── include/              # Header files
 │   ├── alfs.h            # Main definitions & constants
@@ -469,6 +499,7 @@ make test  # Run all tests (22 total: 6 heap + 16 scheduler)
 ```
 
 **Expected output:**
+
 ```
 Running Min-Heap Tests...
   [PASS] test_heap_create_destroy
@@ -501,119 +532,70 @@ Running Scheduler Tests...
 All scheduler tests passed!
 ```
 
-### Debug Build
-
-For debugging with AddressSanitizer and UndefinedBehaviorSanitizer:
+### Integration Test
 
 ```bash
-make debug
+# Comprehensive scenario (25 timeframes)
+rm -f event.socket
+python3 tests/test_server.py event.socket tests/sample_input2.json
+# in second terminal:
+./alfs_scheduler -s event.socket -c 4 -m
 ```
-
-This enables:
-- Debug symbols (`-g`)
-- Address sanitizer (`-fsanitize=address`)
-- Undefined behavior sanitizer (`-fsanitize=undefined`)
-- No optimization (`-O0`)
 
 ---
 
-## VS Code Integration
+## Exam / Demo Guide
 
-### Setup
+### Using with an External Tester
 
-1. Install **WSL** extension (Windows only)
-2. Install **C/C++** extension by Microsoft
-3. Connect to WSL: `Ctrl + Shift + P` → `WSL: Connect to WSL`
-4. Open terminal: `` Ctrl + ` ``
+If someone provides their own tester, ask for:
 
-### Recommended Extensions
+1. Socket path
+2. CPU count they expect
+3. Whether metadata is required
 
-| Extension | Purpose |
-|-----------|---------|
-| **C/C++** (Microsoft) | IntelliSense, debugging |
-| **WSL** (Microsoft) | Linux on Windows |
-| **Makefile Tools** (Microsoft) | Makefile support |
-| **GitLens** | Git history |
-| **Error Lens** | Inline error display |
+Then run only your scheduler:
 
-### Useful Keyboard Shortcuts
+```bash
+./alfs_scheduler -s /their/socket/path -c <cpus> -m
+```
 
-| Shortcut | Action |
-|----------|--------|
-| `` Ctrl + ` `` | Toggle terminal |
-| `` Ctrl + Shift + ` `` | New terminal |
-| `Ctrl + Shift + P` | Command palette |
-| `Ctrl + Shift + E` | File explorer |
-| `Ctrl + Shift + F` | Search in files |
-| `F12` | Go to definition |
-| `Ctrl + /` | Toggle comment |
+### Reading Output Files
+
+Each item in `tests/sample_input_output.json` is one scheduler tick result:
+
+- `schedule[0]` = CPU0, `schedule[1]` = CPU1, etc.
+- If all entries are `"idle"`, no runnable task exists.
+- If `blockedTasks` grows, a task was blocked and removed from CPU assignment.
+- If `preemptions` is high, scheduling order changed significantly.
+- If `migrations` is high, tasks moved between CPUs.
+
+### 60-Second Explanation
+
+1. "My scheduler uses CFS-style vruntime fairness with a Min-Heap for runnable tasks."
+2. "Input arrives as JSON events over UDS; output is one schedule per vtime tick."
+3. "Nice values map to Linux weight table; vruntime grows by `runtime * 1024 / weight`."
+4. "I support affinity, cgroups (shares/quota/period/mask), migrations, and metadata."
+5. "I validate unknown actions and handle cgroup modifications/deletions safely."
 
 ---
 
 ## Troubleshooting
 
-### Common Problems
-
-| Problem | Solution |
-|---------|----------|
-| `command not found: make` | `sudo apt install build-essential` |
-| `command not found: gcc` | `sudo apt install gcc` |
-| `command not found: python3` | `sudo apt install python3` |
-| `Permission denied` | `chmod +x run_test.sh alfs_scheduler` |
-| `Failed to connect to socket` | `rm -f event.socket` |
-| `Address already in use` | `rm -f event.socket` |
-| Build errors | `make clean && make` |
-| Slow on WSL2 | Copy project to `~/` instead of `/mnt/c/` |
-
-### WSL2-Specific Issues
-
-| Problem | Solution |
-|---------|----------|
-| `wsl --install` fails | Run PowerShell as Administrator |
-| Can't find files | Use `/mnt/c/Users/USERNAME/...` path |
-| VS Code not connecting | Install WSL extension, restart VS Code |
-| Error 0x80370102 | Enable virtualization in BIOS |
-| Terminal shows PowerShell | Click dropdown → Select "Ubuntu (WSL)" |
-
-### Line Ending Issues
-
-If you get `cannot execute: required file not found`:
-
-```bash
-# Fix line endings
-sed -i 's/\r$//' run_test.sh
-chmod +x run_test.sh
-```
-
-Or in VS Code: Click `CRLF` in bottom-right → Select `LF`
-
----
-
-## WSL Path Reference
-
-| Windows | Linux (WSL) |
-|---------|-------------|
-| `C:\` | `/mnt/c/` |
-| `D:\` | `/mnt/d/` |
-| `C:\Users\John\` | `/mnt/c/Users/John/` |
-| `C:\Users\John\Downloads` | `/mnt/c/Users/John/Downloads` |
-
----
-
-## Glossary
-
-| Term | Meaning |
-|------|---------|
-| **Scheduler** | Program that decides which tasks run when |
-| **vruntime** | Virtual runtime - fair scheduling metric |
-| **Nice value** | Priority (-20 highest to +19 lowest) |
-| **Cgroup** | Control group for resource limits |
-| **UDS** | Unix Domain Socket - local IPC |
-| **Min-Heap** | Data structure for O(1) minimum access |
-| **Preemption** | Stopping a task to run another |
-| **Migration** | Moving a task to different CPU |
-| **Affinity** | Which CPUs a task can run on |
-| **WSL** | Windows Subsystem for Linux |
+| Problem                       | Solution                                               |
+| ----------------------------- | ------------------------------------------------------ |
+| `command not found: make`     | `sudo apt install build-essential`                     |
+| `command not found: gcc`      | `sudo apt install gcc`                                 |
+| `command not found: python3`  | `sudo apt install python3`                             |
+| `Permission denied`           | `chmod +x run_test.sh alfs_scheduler`                  |
+| `Failed to connect to socket` | `rm -f event.socket`                                   |
+| `Address already in use`      | `rm -f event.socket`                                   |
+| Build errors                  | `make clean && make`                                   |
+| Slow on WSL2                  | Copy project to `~/` instead of `/mnt/c/`              |
+| `wsl --install` fails         | Run PowerShell as Administrator                        |
+| Can't find files in WSL       | Use `/mnt/c/Users/USERNAME/...` path                   |
+| Error 0x80370102              | Enable virtualization in BIOS                          |
+| Line ending errors            | `sed -i 's/\r$//' run_test.sh && chmod +x run_test.sh` |
 
 ---
 
@@ -621,44 +603,41 @@ Or in VS Code: Click `CRLF` in bottom-right → Select `LF`
 
 Research documents available in the `docs/` folder:
 
-| Document | Description |
-|----------|-------------|
-| [`rb_tree_vs_heap.md`](docs/rb_tree_vs_heap.md) | Academic comparison of Red-Black Tree vs Min-Heap with literature references |
-| [`eevdf_comparison.md`](docs/eevdf_comparison.md) | Analysis of EEVDF scheduler vs CFS/ALFS with papers + kernel references |
+| Document                                                | Description                                                                       |
+| ------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| [`rb_tree_vs_heap.md`](docs/rb_tree_vs_heap.md)         | Academic comparison of Red-Black Tree vs Min-Heap with literature references      |
+| [`eevdf_comparison.md`](docs/eevdf_comparison.md)       | Analysis of EEVDF scheduler vs CFS/ALFS with papers + kernel references           |
 | [`big_little_research.md`](docs/big_little_research.md) | Big.LITTLE architecture scheduling research with papers + architecture references |
 
 ---
 
 ## Project Status
 
-| Component | Status |
-|-----------|--------|
-| Build | ✅ Compiles with strict flags |
-| Heap Tests | ✅ 6/6 passing |
-| Scheduler Tests | ✅ 16/16 passing |
-| Integration Test | ✅ 20/20 timeframes |
-| Core Features | ✅ Complete |
-| Bonus Features | ✅ Complete |
+| Component        | Status                        |
+| ---------------- | ----------------------------- |
+| Build            | ✅ Compiles with strict flags |
+| Heap Tests       | ✅ 6/6 passing                |
+| Scheduler Tests  | ✅ 16/16 passing              |
+| Integration Test | ✅ 20/20 timeframes           |
+| Core Features    | ✅ Complete                   |
+| Bonus Features   | ✅ Complete                   |
 
 ---
 
-## Success Checklist
+## Glossary
 
-### All Users
-- [ ] Installed build tools (gcc, make, python3)
-- [ ] Built project successfully (`make`)
-- [ ] All tests pass (`make test`)
-- [ ] Demo runs (`./run_test.sh`)
-
-### Windows Users
-- [ ] WSL2 installed and working
-- [ ] Ubuntu setup complete
-- [ ] Can access project from WSL
-
-### VS Code Users
-- [ ] WSL extension installed (Windows)
-- [ ] C/C++ extension installed
-- [ ] Terminal works in VS Code
+| Term           | Meaning                                   |
+| -------------- | ----------------------------------------- |
+| **Scheduler**  | Program that decides which tasks run when |
+| **vruntime**   | Virtual runtime - fair scheduling metric  |
+| **Nice value** | Priority (-20 highest to +19 lowest)      |
+| **Cgroup**     | Control group for resource limits         |
+| **UDS**        | Unix Domain Socket - local IPC            |
+| **Min-Heap**   | Data structure for O(1) minimum access    |
+| **Preemption** | Stopping a task to run another            |
+| **Migration**  | Moving a task to different CPU            |
+| **Affinity**   | Which CPUs a task can run on              |
+| **WSL**        | Windows Subsystem for Linux               |
 
 ---
 
